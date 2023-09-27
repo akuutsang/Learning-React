@@ -5,12 +5,13 @@ function App() {
     <div className="App ">
       {showEmployee ? (
       <>
-        <Employee name="Winnie" />
-        <Employee/>
-        <Employee/>
-        <Employee/>
+        <Employee name="Abi" role="intern" />
+        <Employee name="Abok" role="intern"/>
+        <Employee name="Akutsang" role=""/>
+        <Employee name="Akare" role="intern"/>
       </>
       ): ("access denied!")}
+      
 
     </div>
   );
