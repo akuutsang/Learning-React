@@ -1,6 +1,6 @@
-import "./index.css"
+// import "./index.css"
 import { useState } from "react" 
-import Employee from "./component/employee/Employee"
+import Employee from "./component/Employee"
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -37,7 +37,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App ">
     {showEmployee ? (
       <>
         <input 
@@ -46,7 +46,8 @@ function App() {
              setRole(e.target.value);
           }}
         />
-        <div className="flex flex-wrap justify-center ">
+
+        <div className="flex flex-wrap justify-center  ">
           {employees.map((employee) => {
             // console.log(uuidv4())
             return(
@@ -63,6 +64,7 @@ function App() {
                 />
               );
           })}
+
         </div>
       </>
       ): ("access denied!")} 
