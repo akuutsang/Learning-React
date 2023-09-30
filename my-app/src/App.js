@@ -47,7 +47,7 @@ function App() {
           }}
         />
 
-        <div className="flex flex-wrap justify-center  ">
+        <div className="flex flex-wrap justify-center ">
           {employees.map((employee) => {
             // console.log(uuidv4())
             return(
@@ -66,11 +66,13 @@ function App() {
           })}
 
         </div>
+        
       </>
       ): ("access denied!")} 
       
     </div>
-  );
+    
+      );
 }
 
 export default App;
