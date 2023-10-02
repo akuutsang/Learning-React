@@ -1,44 +1,68 @@
 // import "./index.css"
 import { useState } from "react" 
 import Employee from "./component/Employee"
-import { v4 as uuidv4 } from 'uuid';
 
 
 function App() {
-  const showEmployee =true;
   const [role, setRole] = useState("dev");
   const  [employees, setEmployees] = useState([
     {
-      name:"Julius",
-      role:"", 
-      img:"/Assets/Images/julz.jpeg",
-      },
+    id: 1,
+    name:"Julius",
+    role:"", 
+    img:"/Assets/Images/julz.jpeg",
+    },
     {
+    id: 2,
     name:"Abi",
     role:"Project Manager", 
     img:"/Assets/Images/Audrey.jpeg",
     },
     {
+    id: 3,
     name:"Abok",
     role:"FrontEnd", 
     img:"/Assets/Images/saboy.jpeg",
     },
     {
+     id: 4,
      name:"Akutsang",
      role:"", 
      img:"/Assets/Images/akutsang.png",
     },
     {
+     id: 5,
      name:"Abi",
      role:"BackEnd", 
      img:"/Assets/Images/Tori.jpeg",
     },
-  ]);
+  ]
+  
+  );
+  function updateEmployee(id, newName, newRole){
+    const updatedEmployees = employees.map((employee) => {
+      if (id === employee.id) {
+        return {...employee, name: newName, role : newRole}
+        // ..employee is a short way of directing the function to be able to 
+        // change all objects of the variable in this case employees.
+        // other wise you can set them as parameters in the function and asign them in the return 
+      }
+       return employee;
 
+    })
+    setEmployees(updatedEmployees)
+    // console.log("updateEmployee inside of App.js")
+  }
+
+
+  const showEmployees = true;
+
+  
 
   return (
+    
     <div className="App ">
-    {showEmployee ? (
+    {showEmployees ? (
       <>
         <input 
           type='text' 
@@ -49,25 +73,19 @@ function App() {
 
         <div className="flex flex-wrap justify-center ">
           {employees.map((employee) => {
-            // console.log(uuidv4())
             return(
-              <Employee 
-                key={uuidv4()}
-                // to set a unique key without having to manually type it
-                // simply install uuid on the terminal i.e npm install uuid
-                // import it on the js file i.e import { v4 as uuidv4 } from 'uuid';
-                // then pass it as the key value i.e key{uuidv4}
-                // you can console.log it to view the unique key value on your console.
+              <Employee                 
+                key={employee.id}
+                id={employee.id}
                 name={employee.name}
                 role={employee.role} 
-                img={employee.img}              
+                img={employee.img}   
+                updateEmployee={updateEmployee}           
                 />
               );
           })}
-
-        </div>
-        
-      </>
+        </div> 
+   </>
       ): ("access denied!")} 
       
     </div>
