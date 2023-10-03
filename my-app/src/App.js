@@ -2,6 +2,7 @@
 import { useState } from "react" 
 import AddEmployee from "./component/AddEmployee";
 import Employee from "./component/Employee"
+import EditEmployee from "./component/EditEmployee"
 import { v4 as uuidv4 } from "uuid"
 
 
@@ -50,7 +51,6 @@ function App() {
         // other wise you can set them as parameters in the function and asign them in the return 
       }
        return employee;
-
     });
 
     setEmployees(updatedEmployees)
@@ -65,7 +65,6 @@ function App() {
      role: role,
      img: img,
    };
-
    setEmployees([...employees, newEmployee])
  }
 
@@ -89,6 +88,15 @@ function App() {
 
         <div className="flex flex-wrap justify-center ">
           {employees.map((employee) => {
+            const editEmployee = ( <EditEmployee 
+            
+            id={employee.id}
+            name={employee.name} 
+            role={employee.role} 
+            updateEmployee={updateEmployee}
+            
+             />
+            )
             return(
               <Employee                 
                 key={employee.id}
@@ -96,7 +104,7 @@ function App() {
                 name={employee.name}
                 role={employee.role} 
                 img={employee.img}   
-                updateEmployee={updateEmployee}           
+                editEmployee={editEmployee}           
                 />
               );
           })}
