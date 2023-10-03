@@ -1,6 +1,8 @@
 // import "./index.css"
 import { useState } from "react" 
+import AddEmployee from "./component/AddEmployee";
 import Employee from "./component/Employee"
+import { v4 as uuidv4 } from "uuid"
 
 
 function App() {
@@ -37,8 +39,8 @@ function App() {
      img:"/Assets/Images/Tori.jpeg",
     },
   ]
-  
   );
+
   function updateEmployee(id, newName, newRole){
     const updatedEmployees = employees.map((employee) => {
       if (id === employee.id) {
@@ -49,10 +51,24 @@ function App() {
       }
        return employee;
 
-    })
+    });
+
     setEmployees(updatedEmployees)
     // console.log("updateEmployee inside of App.js")
   }
+
+
+  function newEmployee(name, role, img){
+    const newEmployee = {
+     id:uuidv4(),
+     name: name,
+     role: role,
+     img: img,
+   };
+
+   setEmployees([...employees, newEmployee])
+ }
+
 
 
   const showEmployees = true;
@@ -85,6 +101,7 @@ function App() {
               );
           })}
         </div> 
+        <AddEmployee newEmployee = {newEmployee}/>
    </>
       ): ("access denied!")} 
       
