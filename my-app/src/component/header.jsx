@@ -52,6 +52,8 @@ export default function Header(props) {
                             (isActive
                               ? "text-gray-300 hover:bg-gray-700 hover:text-white"
                               : "text-gray-300 hover:bg-gray-700 hover:text-white")
+
+                            // these blocks of code basically sets a certain styling when component is active
                           );
                         }}
                       >
