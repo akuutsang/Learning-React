@@ -7,7 +7,7 @@ export default function Dictionary() {
 
   useEffect(() => {
     console.log("state updated", word + " " + word2);
-  }, []);
+  }, [word]);
 
   // no dependency array --> update for anystate change asin line 7-9
 
