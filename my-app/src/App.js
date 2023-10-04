@@ -1,16 +1,16 @@
 import "./index.css";
-import { useState } from "react";
-import AddEmployee from "./component/AddEmployee";
-import Employee from "./component/Employee";
-import EditEmployee from "./component/EditEmployee";
-import { v4 as uuidv4 } from "uuid";
 import Header from "./component/header";
 import Employees from "./pages/Employees";
+import { Routes, Route } from "react-router-dom";
+import Customers from "./pages/Customers";
 
 function App() {
   return (
     <Header>
-      <Employees />
+      <Routes>
+        <Route path="/employees" element={<Employees />}></Route>
+        <Route path="/customers" element={<Customers />}></Route>
+      </Routes>
     </Header>
   );
 }
