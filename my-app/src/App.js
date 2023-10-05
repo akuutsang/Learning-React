@@ -15,6 +15,7 @@ function App() {
           <Route path="/customers" element={<Customers />}></Route>
           <Route path="/dictionary" element={<Dictionary />}></Route>
           <Route path="/definition" element={<Definition />}></Route>
+          <Route path="/definition/:search" element={<Definition />}></Route>
         </Routes>
       </Header>
     </BrowserRouter>
