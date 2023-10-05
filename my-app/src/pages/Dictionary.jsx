@@ -17,7 +17,7 @@ export default function Dictionary() {
 
       <button
         onClick={() => {
-          navigate("/definition/" + word);
+          navigate("/definition/" + word, { replace: true });
         }}
       >
         Search
