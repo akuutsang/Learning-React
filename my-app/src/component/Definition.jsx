@@ -6,14 +6,28 @@ import NotFound from "./NotFound";
 export default function Definition() {
   const [word, setWord] = useState();
   const [notFound, setNotFound] = useState(false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   let { search } = useParams();
 
   useEffect(() => {
-    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + search)
+    // const url = "https://htjijuhgouyghj00";
+    // const url = "https://httpstat.us/500";
+    const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
+
+    fetch(url)
       .then((response) => {
         if (response.status === 404) {
           setNotFound(true);
+        } else if (response.status === 401) {
+          navigate("/login");
+        } else if (response.status === 500) {
+          setError(true);
+        }
+        if (!response.ok) {
+          setError(true);
+
+          throw new Error("something went wrong");
         }
         return response.json();
       })
@@ -23,12 +37,22 @@ export default function Definition() {
         } else {
           setNotFound(true);
         }
-      });
+      })
+
+      .catch((e) => {});
   }, []);
   if (notFound === true) {
     return (
       <>
         <NotFound />
+        <Link to="/dictionary">Search another word</Link>
+      </>
+    );
+  }
+  if (error === true) {
+    return (
+      <>
+        <p> Something went wrong, try again</p>
         <Link to="/dictionary">Search another word</Link>
       </>
     );
