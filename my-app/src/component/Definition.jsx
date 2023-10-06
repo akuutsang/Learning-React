@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import DefinitionSearch from "./DefinitionSearch";
 import NotFound from "./NotFound";
 
 export default function Definition() {
@@ -12,7 +13,9 @@ export default function Definition() {
 
   useEffect(() => {
     // const url = "https://htjijuhgouyghj00";
+    // assuming we use an inavalid url, the .catch should be able to handle the error message
     // const url = "https://httpstat.us/500";
+    // if we use this url our code will run line 27 and return line 54
     const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
 
     fetch(url)
@@ -71,6 +74,9 @@ export default function Definition() {
               </p>
             );
           })}
+
+          <p>Search again:</p>
+          <DefinitionSearch />
         </>
       ) : null}
     </>
