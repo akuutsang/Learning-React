@@ -6,6 +6,7 @@ import Customers from "./pages/Customers";
 import Dictionary from "./pages/Dictionary";
 import Definition from "./component/Definition";
 import NotFound from "./component/NotFound";
+import Count from "./component/Count";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/dictionary/:search" element={<Definition />}></Route>
           <Route path="/404" element={<NotFound />}></Route>
           <Route path="*" element={<NotFound />}></Route>
+
+          <Route path="/count" element={<Count />}></Route>
         </Routes>
       </Header>
     </BrowserRouter>
