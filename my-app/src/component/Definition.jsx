@@ -30,19 +30,22 @@ export default function Definition() {
         if (!response.ok) {
           setError(true);
 
-          throw new Error("something went wrong");
+          throw new Error("try again");
         }
         return response.json();
       })
       .then((data) => {
-        if (data && data.length > 0 && data[0]?.meanings) {
+        console.log("hi");
+        if (data[0]?.meanings) {
           setWord(data[0].meanings);
         } else {
           setNotFound(true);
         }
       })
 
-      .catch((e) => {});
+      .catch((e) => {
+        console.log("me", e);
+      });
   }, []);
   if (notFound === true) {
     return (
