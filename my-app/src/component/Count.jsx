@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 export default function Count() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(50);
 
   useEffect(() => {
-    if (count < 50) {
+    if (count > 0) {
       const timer = setTimeout(() => {
-        setCount((prevCount) => prevCount + 1);
+        setCount((prevCount) => prevCount - 1);
       }, 1000);
 
       return () => clearTimeout(timer);

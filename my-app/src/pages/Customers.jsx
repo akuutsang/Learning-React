@@ -10,7 +10,7 @@ function Customers() {
       .then((response) => response.json())
       .then((data) => {
         setCustomers(data.customers);
-        console.log(data);
+        // console.log(data);
       });
   }, []);
   return (

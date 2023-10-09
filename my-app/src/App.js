@@ -3,6 +3,8 @@ import Header from "./component/header";
 import Employees from "./pages/Employees";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Customers from "./pages/Customers";
+import Customer from "./pages/Customer";
+
 import Dictionary from "./pages/Dictionary";
 import Definition from "./component/Definition";
 import NotFound from "./component/NotFound";
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/employees" element={<Employees />}></Route>
           <Route path="/customers" element={<Customers />}></Route>
+          <Route path="/customers/:id" element={<Customer />}></Route>
+
           <Route path="/dictionary" element={<Dictionary />}></Route>
           <Route path="/dictionary/:search" element={<Definition />}></Route>
           <Route path="/404" element={<NotFound />}></Route>
