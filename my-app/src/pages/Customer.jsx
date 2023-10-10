@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import NotFound from "../component/NotFound";
+// import NotFound from "../component/NotFound";
 import { baseUrl } from "../Shared";
 
 export default function Customer() {
