@@ -9,10 +9,12 @@ export default function Customer() {
   const [notFound, setNotFound] = useState();
   const { id } = useParams();
   const [tempCustomer, setTempCustomer] = useState();
+  const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    console.log("customer", customer);
-    console.log("tempCustomer", tempCustomer);
+    // console.log(changed);
+    // console.log("customer", customer);
+    // console.log("tempCustomer", tempCustomer);
   });
 
   useEffect(() => {
@@ -29,6 +31,23 @@ export default function Customer() {
         setTempCustomer(data.customer);
       });
   }, []);
+  function updateCustomer() {
+    const url = baseUrl + "api/customers/" + id;
+    fetch(url, {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(tempCustomer),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setCustomer(data.customer);
+        setChanged(false);
+        console.log(data);
+      })
+      .catch(() => {});
+  }
   return (
     <>
       {notFound ? <p> the customer with id: {id} does not exist</p> : null}
@@ -43,6 +62,7 @@ export default function Customer() {
             value={tempCustomer.name}
             onChange={(e) => {
               setTempCustomer({ ...tempCustomer, name: e.target.value });
+              setChanged(true);
             }}
           />
           <input
@@ -51,8 +71,22 @@ export default function Customer() {
             value={tempCustomer.industry}
             onChange={(e) => {
               setTempCustomer({ ...tempCustomer, industry: e.target.value });
+              setChanged(true);
             }}
           />
+          {changed ? (
+            <>
+              <button
+                onClick={(e) => {
+                  setTempCustomer({ ...customer });
+                  setChanged(false);
+                }}
+              >
+                Cancel
+              </button>{" "}
+              <button onClick={updateCustomer}>Save</button>{" "}
+            </>
+          ) : null}
         </div>
       ) : null}
       <button
