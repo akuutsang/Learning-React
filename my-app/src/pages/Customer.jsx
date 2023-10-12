@@ -12,9 +12,13 @@ export default function Customer() {
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    // console.log(changed);
-    // console.log("customer", customer);
-    // console.log("tempCustomer", tempCustomer);
+    if (!tempCustomer) return;
+    if (!tempCustomer) return;
+
+    let equal = true;
+    if (customer.name !== tempCustomer.name) equal = false;
+    if (customer.industry !== tempCustomer.industry) equal = false;
+    if (equal) setChanged(false);
   });
 
   useEffect(() => {
@@ -48,6 +52,7 @@ export default function Customer() {
       })
       .catch(() => {});
   }
+
   return (
     <>
       {notFound ? <p> the customer with id: {id} does not exist</p> : null}
@@ -61,8 +66,11 @@ export default function Customer() {
             type="text"
             value={tempCustomer.name}
             onChange={(e) => {
-              setTempCustomer({ ...tempCustomer, name: e.target.value });
               setChanged(true);
+              setTempCustomer({
+                ...tempCustomer,
+                name: e.target.value,
+              });
             }}
           />
           <input
@@ -70,13 +78,17 @@ export default function Customer() {
             type="text"
             value={tempCustomer.industry}
             onChange={(e) => {
-              setTempCustomer({ ...tempCustomer, industry: e.target.value });
               setChanged(true);
+              setTempCustomer({
+                ...tempCustomer,
+                industry: e.target.value,
+              });
             }}
           />
           {changed ? (
             <>
               <button
+                className="m-2"
                 onClick={(e) => {
                   setTempCustomer({ ...customer });
                   setChanged(false);
@@ -84,7 +96,9 @@ export default function Customer() {
               >
                 Cancel
               </button>{" "}
-              <button onClick={updateCustomer}>Save</button>{" "}
+              <button className="m-2" onClick={updateCustomer}>
+                Save
+              </button>{" "}
             </>
           ) : null}
         </div>
