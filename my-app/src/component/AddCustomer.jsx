@@ -14,7 +14,7 @@ function AddCustomer(props) {
     <>
       <button
         onClick={props.toggleShow}
-        className="block mx-auto m-2 px-3 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+        className="block m-2 px-3 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
       >
         + Add Customer
       </button>
