@@ -28,11 +28,21 @@ export default function Customer() {
         if (response.status === 404) {
           setNotFound(true);
         }
+
+        if (!response.ok) {
+          console.log("response", response);
+          throw new Error("Something went wrong, try again later");
+        }
+
         return response.json();
       })
       .then((data) => {
         setCustomer(data.customer);
         setTempCustomer(data.customer);
+        setError(undefined);
+      })
+      .catch((e) => {
+        setError(e.message);
       });
   }, []);
   function updateCustomer() {
@@ -124,15 +134,15 @@ export default function Customer() {
                   navigate("/customers");
                 })
                 .catch((e) => {
-                  console.log(e);
+                  setError(e.message);
                 });
             }}
           >
             Delete
           </button>
-          {error ? <p>{error}</p> : null}
         </div>
       ) : null}
+      {error ? <p>{error}</p> : null}
       <br />
       <Link to="/customers">Return to list</Link>
     </>
