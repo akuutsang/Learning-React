@@ -45,7 +45,8 @@ export default function Customer() {
         setError(e.message);
       });
   }, []);
-  function updateCustomer() {
+  function updateCustomer(e) {
+    e.preventDefault();
     const url = baseUrl + "api/customers/" + id;
     fetch(url, {
       method: "POST",
@@ -74,33 +75,37 @@ export default function Customer() {
       {notFound ? <p> the customer with id: {id} does not exist</p> : null}
       {customer ? (
         <div>
-          <p class="m-2 block px-2" type="text">
+          {/* <p class="m-2 block px-2" type="text">
             ID:{tempCustomer.id}{" "}
-          </p>
-          <input
-            class="m-2 block px-2"
-            type="text"
-            value={tempCustomer.name}
-            onChange={(e) => {
-              setChanged(true);
-              setTempCustomer({
-                ...tempCustomer,
-                name: e.target.value,
-              });
-            }}
-          />
-          <input
-            class="m-2 block px-2"
-            type="text"
-            value={tempCustomer.industry}
-            onChange={(e) => {
-              setChanged(true);
-              setTempCustomer({
-                ...tempCustomer,
-                industry: e.target.value,
-              });
-            }}
-          />
+          </p> */}
+
+          {/* you dont necessarily have to display the ID */}
+          <form id="customer">
+            <input
+              class="m-2 block px-2"
+              type="text"
+              value={tempCustomer.name}
+              onChange={(e) => {
+                setChanged(true);
+                setTempCustomer({
+                  ...tempCustomer,
+                  name: e.target.value,
+                });
+              }}
+            />
+            <input
+              class="m-2 block px-2"
+              type="text"
+              value={tempCustomer.industry}
+              onChange={(e) => {
+                setChanged(true);
+                setTempCustomer({
+                  ...tempCustomer,
+                  industry: e.target.value,
+                });
+              }}
+            />
+          </form>
           {changed ? (
             <>
               <button
@@ -112,7 +117,7 @@ export default function Customer() {
               >
                 Cancel
               </button>{" "}
-              <button className="m-2" onClick={updateCustomer}>
+              <button form="customer" className="m-2" onClick={updateCustomer}>
                 Save
               </button>{" "}
             </>
