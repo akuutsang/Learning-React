@@ -75,11 +75,6 @@ export default function Customer() {
       {notFound ? <p> the customer with id: {id} does not exist</p> : null}
       {customer ? (
         <div>
-          {/* <p class="m-2 block px-2" type="text">
-            ID:{tempCustomer.id}{" "}
-          </p> */}
-
-          {/* you dont necessarily have to display the ID */}
           <form id="customer">
             <input
               class="m-2 block px-2"
