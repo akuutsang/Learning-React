@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddCustomer from "../component/AddCustomer";
 import { baseUrl } from "../Shared";
 
@@ -10,11 +10,17 @@ export default function Customers() {
   function toggleShow() {
     setShow(!show);
   }
+  const navigate = useNavigate();
 
   useEffect(() => {
     const url = baseUrl + "api/customers/";
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 401) {
+          navigate("/login");
+        }
+        return response.json();
+      })
       .then((data) => {
         setCustomers(data.customers);
       });

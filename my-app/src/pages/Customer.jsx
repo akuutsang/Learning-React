@@ -27,13 +27,14 @@ export default function Customer() {
       .then((response) => {
         if (response.status === 404) {
           setNotFound(true);
+        } else if (response.status === 401) {
+          navigate("/login");
         }
 
         if (!response.ok) {
           console.log("response", response);
           throw new Error("Something went wrong, try again later");
         }
-
         return response.json();
       })
       .then((data) => {
@@ -45,6 +46,7 @@ export default function Customer() {
         setError(e.message);
       });
   }, []);
+
   function updateCustomer(e) {
     e.preventDefault();
     const url = baseUrl + "api/customers/" + id;
