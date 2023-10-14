@@ -9,6 +9,7 @@ import Dictionary from "./pages/Dictionary";
 import Definition from "./component/Definition";
 import NotFound from "./component/NotFound";
 import Count from "./component/Count";
+import Login from "./pages/login";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
 
           <Route path="/count" element={<Count />}></Route>
+          <Route path="/login" element={<Login />}></Route>
         </Routes>
       </Header>
     </BrowserRouter>
