@@ -23,7 +23,12 @@ export default function Customer() {
 
   useEffect(() => {
     const url = baseUrl + "api/customers/" + id;
-    fetch(url)
+    fetch(url, {
+      headers: {
+        "content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access"),
+      },
+    })
       .then((response) => {
         if (response.status === 404) {
           setNotFound(true);
@@ -52,11 +57,17 @@ export default function Customer() {
     const url = baseUrl + "api/customers/" + id;
     fetch(url, {
       method: "POST",
-      headers: { "content-Type": "application/json" },
+      headers: {
+        "content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access"),
+      },
       body: JSON.stringify(tempCustomer),
     })
       .then((response) => {
         console.log("response", response);
+        if (response.status === 401) {
+          navigate("/login");
+        }
         if (!response.ok) throw new Error("Something went wrong");
         return response.json();
       })
@@ -152,10 +163,14 @@ export default function Customer() {
                 fetch(url, {
                   method: "DELETE",
                   headers: {
-                    "Content-Type": "Application/json",
+                    "content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("access"),
                   },
                 })
                   .then((response) => {
+                    if (response.status === 401) {
+                      navigate("/login");
+                    }
                     if (!response.ok) {
                       throw new Error("something went wrong");
                     }
