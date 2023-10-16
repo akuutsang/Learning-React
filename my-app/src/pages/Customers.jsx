@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import AddCustomer from "../component/AddCustomer";
 import { baseUrl } from "../Shared";
 
@@ -11,6 +11,7 @@ export default function Customers() {
     setShow(!show);
   }
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const url = baseUrl + "api/customers/";
@@ -22,7 +23,11 @@ export default function Customers() {
     })
       .then((response) => {
         if (response.status === 401) {
-          navigate("/login");
+          navigate("/login", {
+            state: {
+              previousUrl: location.pathname,
+            },
+          });
         }
         return response.json();
       })

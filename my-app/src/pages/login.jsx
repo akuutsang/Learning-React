@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { baseUrl } from "../Shared";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state) {
+      console.log(location.state.previousUrl);
+    }
+  });
+
   function login(e) {
     e.preventDefault();
     const url = baseUrl + "api/token/";
@@ -23,7 +34,11 @@ export default function Login() {
       .then((data) => {
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
-        console.log(localStorage);
+        navigate(
+          location?.state?.previousUrl
+            ? location.state.previousUrl
+            : "/customers"
+        );
       });
   }
   return (
