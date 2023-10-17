@@ -11,7 +11,7 @@ export default function Login() {
 
   useEffect(() => {
     if (location.state) {
-      console.log(location.state.previousUrl);
+      // console.log(location.state.previousUrl);
     }
   });
 
