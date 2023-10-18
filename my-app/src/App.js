@@ -16,7 +16,7 @@ export const LoginContext = createContext();
 function App() {
   // check local storage for an access code --> may be expired
   // long term goal --> use refresh token, if it works, stay logged in, otherwise send to login page
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(localStorage.access ? true : false);
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
       <BrowserRouter>
