@@ -18,9 +18,6 @@ function classNames(...classes) {
 
 export default function Header(props) {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
-  useEffect(() => {
-    console.log(loggedIn);
-  });
 
   return (
     <>
@@ -63,6 +60,12 @@ export default function Header(props) {
                           {item.name}
                         </NavLink>
                       ))}
+                      <NavLink
+                        to={loggedIn ? "/logout" : "/login "}
+                        className="block rounded-md px-3 py-2 text-base font-medium no-underline text-gray-300 hover:bg-gray-700 hover:text-white"
+                      >
+                        {loggedIn ? "Logout" : "Login"}
+                      </NavLink>
                     </div>
                   </div>
                 </div>
