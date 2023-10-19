@@ -14,11 +14,16 @@ import Login from "./pages/Login";
 export const LoginContext = createContext();
 
 function App() {
-  // check local storage for an access code --> may be expired
   // long term goal --> use refresh token, if it works, stay logged in, otherwise send to login page
   const [loggedIn, setLoggedIn] = useState(localStorage.access ? true : false);
+  function changeLoggedIn(value) {
+    setLoggedIn(value);
+    if (value === false) {
+      localStorage.clear();
+    }
+  }
   return (
-    <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
+    <LoginContext.Provider value={[loggedIn, changeLoggedIn]}>
       <BrowserRouter>
         <Header>
           <Routes>
