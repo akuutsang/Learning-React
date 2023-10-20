@@ -11,6 +11,7 @@ import NotFound from "./component/NotFound";
 import Count from "./component/Count";
 import Login from "./pages/Login";
 import { baseUrl } from "./Shared";
+import Register from "./pages/Register";
 
 export const LoginContext = createContext();
 
@@ -64,6 +65,7 @@ function App() {
             <Route path="*" element={<NotFound />}></Route>
             <Route path="/count" element={<Count />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
           </Routes>
         </Header>
       </BrowserRouter>

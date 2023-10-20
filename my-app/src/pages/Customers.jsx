@@ -32,6 +32,7 @@ export default function Customers() {
             },
           });
         }
+        
         return response.json();
       })
       .then((data) => {
