@@ -7,55 +7,16 @@ import UseFetch from "../hooks/UseFetch";
 
 export default function Definition() {
   // const [word, setWord] = useState();
-  const [notFound, setNotFound] = useState(false);
-  const [error, setError] = useState(false);
+  // const [notFound, setNotFound] = useState(false);
+  // const [error, setError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   let { search } = useParams();
-  const word = UseFetch(
+  const [word, errorStatus] = UseFetch(
     "https://api.dictionaryapi.dev/api/v2/entries/en/" + search
   );
 
-  useEffect(() => {
-    console.log(word);
-  });
-
-  // useEffect(() => {
-  //   // const url = "https://htjijuhgouyghj00";
-  //   // assuming we use an inavalid url, the .catch should be able to handle the error message
-  //   // const url = "https://httpstat.us/500";
-  //   // if we use this url our code will run line 27 and return line 54
-  //   const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
-
-  //   fetch(url)
-  //     .then((response) => {
-  //       if (response.status === 404) {
-  //         setNotFound(true);
-  //       } else if (response.status === 401) {
-  //       } else if (response.status === 500) {
-  //         setError(true);
-  //       }
-  //       if (!response.ok) {
-  //         setError(true);
-
-  //         throw new Error("try again");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("hi");
-  //       if (data[0]?.meanings) {
-  //         setWord(data[0].meanings);
-  //       } else {
-  //         setNotFound(true);
-  //       }
-  //     })
-
-  //     .catch((e) => {
-  //       console.log("me", e);
-  //     });
-  // }, []);
-  if (notFound === true) {
+  if (errorStatus === 404) {
     return (
       <>
         <NotFound />
@@ -63,7 +24,7 @@ export default function Definition() {
       </>
     );
   }
-  if (error === true) {
+  if (errorStatus) {
     return (
       <>
         <p> Something went wrong, try again</p>
