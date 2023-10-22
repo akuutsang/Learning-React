@@ -3,50 +3,58 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import DefinitionSearch from "./DefinitionSearch";
 import NotFound from "./NotFound";
+import UseFetch from "../hooks/UseFetch";
 
 export default function Definition() {
-  const [word, setWord] = useState();
+  // const [word, setWord] = useState();
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   let { search } = useParams();
+  const word = UseFetch(
+    "https://api.dictionaryapi.dev/api/v2/entries/en/" + search
+  );
 
   useEffect(() => {
-    // const url = "https://htjijuhgouyghj00";
-    // assuming we use an inavalid url, the .catch should be able to handle the error message
-    // const url = "https://httpstat.us/500";
-    // if we use this url our code will run line 27 and return line 54
-    const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
+    console.log(word);
+  });
 
-    fetch(url)
-      .then((response) => {
-        if (response.status === 404) {
-          setNotFound(true);
-        } else if (response.status === 401) {
-        } else if (response.status === 500) {
-          setError(true);
-        }
-        if (!response.ok) {
-          setError(true);
+  // useEffect(() => {
+  //   // const url = "https://htjijuhgouyghj00";
+  //   // assuming we use an inavalid url, the .catch should be able to handle the error message
+  //   // const url = "https://httpstat.us/500";
+  //   // if we use this url our code will run line 27 and return line 54
+  //   const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
 
-          throw new Error("try again");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("hi");
-        if (data[0]?.meanings) {
-          setWord(data[0].meanings);
-        } else {
-          setNotFound(true);
-        }
-      })
+  //   fetch(url)
+  //     .then((response) => {
+  //       if (response.status === 404) {
+  //         setNotFound(true);
+  //       } else if (response.status === 401) {
+  //       } else if (response.status === 500) {
+  //         setError(true);
+  //       }
+  //       if (!response.ok) {
+  //         setError(true);
 
-      .catch((e) => {
-        console.log("me", e);
-      });
-  }, []);
+  //         throw new Error("try again");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log("hi");
+  //       if (data[0]?.meanings) {
+  //         setWord(data[0].meanings);
+  //       } else {
+  //         setNotFound(true);
+  //       }
+  //     })
+
+  //     .catch((e) => {
+  //       console.log("me", e);
+  //     });
+  // }, []);
   if (notFound === true) {
     return (
       <>
@@ -63,13 +71,12 @@ export default function Definition() {
       </>
     );
   }
-
   return (
     <>
-      {word ? (
+      {word?.[0]?.meanings ? (
         <>
           <h1>Here is a definition</h1>
-          {word.map((meaning) => {
+          {word[0].meanings.map((meaning) => {
             return (
               <p key={uuidv4()}>
                 {meaning.partOfSpeech + ":"}
