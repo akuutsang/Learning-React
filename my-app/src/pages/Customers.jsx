@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import AddCustomer from "../component/AddCustomer";
 import { baseUrl } from "../Shared";
 import { LoginContext } from "../App";
+import UseFetch from "../hooks/UseFetch";
 
 export default function Customers() {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -14,31 +15,39 @@ export default function Customers() {
   }
   const navigate = useNavigate();
   const location = useLocation();
+  const url = "api/customers/";
 
+  const result = UseFetch(url, "GET", {
+    "content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("access"),
+  });
   useEffect(() => {
-    const url = baseUrl + "api/customers/";
-    fetch(url, {
-      headers: {
-        "content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("access"),
-      },
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          setLoggedIn(false);
-          navigate("/login", {
-            state: {
-              previousUrl: location.pathname,
-            },
-          });
-        }
-        
-        return response.json();
-      })
-      .then((data) => {
-        setCustomers(data.customers);
-      });
-  }, []);
+    console.log(result);
+  });
+  // useEffect(() => {
+  //   const url = baseUrl + "api/customers/";
+  //   fetch(url, {
+  //     headers: {
+  //       "content-Type": "application/json",
+  //       Authorization: "Bearer " + localStorage.getItem("access"),
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.status === 401) {
+  //         setLoggedIn(false);
+  //         navigate("/login", {
+  //           state: {
+  //             previousUrl: location.pathname,
+  //           },
+  //         });
+  //       }
+
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setCustomers(data.customers);
+  //     });
+  // }, []);
 
   function newCustomer(name, industry) {
     const data = { name: name, industry: industry };
@@ -64,7 +73,7 @@ export default function Customers() {
         console.log(e);
       });
   }
-
+  return <></>;
   return (
     <>
       <h1>Here are our customers</h1>

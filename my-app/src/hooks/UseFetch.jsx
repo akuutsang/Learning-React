@@ -1,11 +1,26 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function UseFetch(url) {
+export default function UseFetch(url, method, headers, body) {
   const [data, setData] = useState();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [errorStatus, setErrorStatus] = useState();
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: method,
+      headers: headers,
+      body: body,
+    })
       .then((response) => {
+        if (response.status === 401) {
+          navigate("/login", {
+            state: {
+              previousUrl: location.pathname,
+            },
+          });
+        }
         if (!response.ok) {
           throw response.status;
         }
@@ -19,5 +34,5 @@ export default function UseFetch(url) {
       });
   }, []);
 
-  return [data, errorStatus];
+  return { data, errorStatus };
 }
