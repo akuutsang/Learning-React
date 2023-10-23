@@ -8,21 +8,24 @@ import UseFetch from "../hooks/UseFetch";
 
 export default function Customers() {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
-  const [customers, setCustomers] = useState();
+  // const [customers, setCustomers] = useState();
   const [show, setShow] = useState(false);
   function toggleShow() {
     setShow(!show);
   }
   const navigate = useNavigate();
   const location = useLocation();
-  const url = "api/customers/";
+  const url = baseUrl + "api/customers/";
 
-  const result = UseFetch(url, "GET", {
-    "content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("access"),
+  const { data: { customers } = {}, errorStatus } = UseFetch(url, {
+    method: "GET",
+    headers: {
+      "content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("access"),
+    },
   });
   useEffect(() => {
-    console.log(result);
+    console.log(customers, errorStatus);
   });
   // useEffect(() => {
   //   const url = baseUrl + "api/customers/";
@@ -50,30 +53,29 @@ export default function Customers() {
   // }, []);
 
   function newCustomer(name, industry) {
-    const data = { name: name, industry: industry };
-    const url = baseUrl + "api/customers/";
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("something went wrong");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        toggleShow();
-        setCustomers([...customers, data.customer]);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // const data = { name: name, industry: industry };
+    // const url = baseUrl + "api/customers/";
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("something went wrong");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     toggleShow();
+    //     setCustomers([...customers, data.customer]);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   }
-  return <></>;
   return (
     <>
       <h1>Here are our customers</h1>
