@@ -17,15 +17,25 @@ export default function Customers() {
   const location = useLocation();
   const url = baseUrl + "api/customers/";
 
-  const { data: { customers } = {}, errorStatus } = UseFetch(url, {
+  const {
+    request,
+    appendData,
+    data: { customers } = {},
+    errorStatus,
+  } = UseFetch(url, {
     method: "GET",
     headers: {
       "content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem("access"),
     },
   });
+
   useEffect(() => {
-    console.log(customers, errorStatus);
+    request();
+  }, []);
+
+  useEffect(() => {
+    // console.log(request, appendData, customers, errorStatus);
   });
   // useEffect(() => {
   //   const url = baseUrl + "api/customers/";
@@ -53,28 +63,11 @@ export default function Customers() {
   // }, []);
 
   function newCustomer(name, industry) {
-    // const data = { name: name, industry: industry };
-    // const url = baseUrl + "api/customers/";
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("something went wrong");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     toggleShow();
-    //     setCustomers([...customers, data.customer]);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    appendData({ name: name, industry: industry });
+
+    if (!errorStatus) {
+      toggleShow();
+    }
   }
   return (
     <>
