@@ -10,6 +10,7 @@ const navigation = [
   { name: "Calendar", href: "/other" },
   { name: "Dictionary", href: "/Dictionary" },
   { name: "Count", href: "/Count" },
+  { name: "Lifecycle", href: "/Lifecycle" },
 ];
 
 function classNames(...classes) {

@@ -34,9 +34,9 @@ export default function Customers() {
     request();
   }, []);
 
-  useEffect(() => {
-    // console.log(request, appendData, customers, errorStatus);
-  });
+  // useEffect(() => {
+  //   // console.log(request, appendData, customers, errorStatus);
+  // });
   // useEffect(() => {
   //   const url = baseUrl + "api/customers/";
   //   fetch(url, {

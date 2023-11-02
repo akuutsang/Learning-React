@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import DefinitionSearch from "./DefinitionSearch";
 import NotFound from "./NotFound";
 import UseFetch from "../hooks/UseFetch";
 
 export default function Definition() {
-  // const [word, setWord] = useState();
-  // const [notFound, setNotFound] = useState(false);
-  // const [error, setError] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
   let { search } = useParams();
-  const { data: [{ meanings: word }] = [{}], errorStatus } = UseFetch(
-    "https://api.dictionaryapi.dev/api/v2/entries/en/" + search
-  );
+  const {
+    request,
+    data: [{ meanings: word }] = [{}],
+    errorStatus,
+  } = UseFetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + search);
 
+  useEffect(() => {
+    request();
+  });
   if (errorStatus === 404) {
     return (
       <>
@@ -45,7 +45,6 @@ export default function Definition() {
               </p>
             );
           })}
-
           <p>Search again:</p>
           <DefinitionSearch />
         </>

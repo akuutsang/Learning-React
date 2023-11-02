@@ -12,6 +12,7 @@ import Count from "./component/Count";
 import Login from "./pages/Login";
 import { baseUrl } from "./Shared";
 import Register from "./pages/Register";
+import LifeCycle from "./component/LifeCycle";
 
 export const LoginContext = createContext();
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/count" element={<Count />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
+            <Route path="/lifecycle" element={<LifeCycle />}></Route>
           </Routes>
         </Header>
       </BrowserRouter>
