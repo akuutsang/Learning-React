@@ -1,72 +1,48 @@
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
 
-export default class LifeCycle extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    comments: "",
-    isFriendly: "true",
-    employment: "",
-    favColor: "",
+function Log() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    console.log("APP COMPNENT RENDERED");
+  });
+
+  const handleChange = (name) => (event) => {
+    setFormData({ ...formData, [name]: event.target.value });
   };
-
-  handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    type === "checkbox"
-      ? this.setState({
-          [name]: checked,
-        })
-      : this.setState({
-          [name]: value,
-        });
+  const handleSubmit = (event) => {
+    console.log("result", formData);
   };
-
-  componentDidMount() {
-    console.log("componentDidMount");
-    // fetch("https://swapi.dev/api/people/1")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     this.setState({ character: data });
-    //   });
-  }
-
-  componentDidUpdate() {
-    console.log("update");
-  }
-
-  render() {
-    return (
-      <form>
-        <input
-          type="text"
-          placeholder="First Name"
-          onChange={this.handleChange}
-          name="firstName"
-          value={this.state.firstName}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          onChange={this.handleChange}
-          name="lastName"
-          value={this.state.lastName}
-        />
+  return (
+    <div className="p-10">
+      <div className="p-2 flex flex-col">
+        <label htmlFor="email">Enter your Email</label>
         <input
           type="email"
-          placeholder="Email"
-          onChange={this.handleChange}
-          name="email"
-          value={this.state.email}
+          className="w-40"
+          placeholder="Enter your Email"
+          id="email"
+          onChange={handleChange("email")}
         />
+      </div>
+      <div className="p-2 flex flex-col">
+        <label htmlFor="password">Enter your password</label>
         <input
-          type="text"
-          placeholder="comments"
-          onChange={this.handleChange}
-          name="comments"
-          value={this.state.comments}
+          type="password"
+          className="w-40 "
+          placeholder="Enter your Password"
+          id="password"
+          onChange={handleChange("password")}
         />
-      </form>
-    );
-  }
+      </div>
+      <button
+        onClick={handleSubmit}
+        className="border-black w-20 bg-blue-600 p-1"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  );
 }
+export default Log;
